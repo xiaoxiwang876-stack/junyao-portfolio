@@ -1,0 +1,20 @@
+.scrap-charm{position:absolute;object-fit:contain;pointer-events:none;user-select:none;z-index:5;filter:drop-shadow(2px 3px 2px #496c801a)}
+.charm-top{width:61px;height:100px;right:17px;top:12px;transform:rotate(12deg);opacity:.85}
+.charm-bottom{width:76px;height:88px;right:23px;bottom:34px;transform:rotate(-12deg);opacity:.8}
+.leaf-sticker{display:none}
+.cover-chain{width:85px;height:165px;left:-47px;top:-18px;transform:rotate(12deg)}
+.cover-bow{width:102px;height:92px;right:15px;bottom:13px;transform:rotate(-14deg);opacity:.8}
+.cover-letter{width:142px;height:110px;left:calc(50% + 234px);bottom:49px;transform:rotate(13deg);z-index:-1}
+.scrap-note{position:absolute;left:calc(50% - 354px);top:70px;width:155px;padding:27px 17px 20px;background:#f7fafc;box-shadow:2px 5px 8px #42648222;transform:rotate(-13deg);color:#7995ac;pointer-events:none;z-index:-1;border-bottom:3px dotted #c2d5e4}
+.scrap-note:before{content:'';position:absolute;left:36px;top:-10px;width:73px;height:23px;background-color:#d1dfebc9;background-image:repeating-linear-gradient(90deg,transparent 0 6px,#ffffff70 6px 12px),repeating-linear-gradient(0deg,transparent 0 6px,#ffffff70 6px 12px);transform:rotate(5deg)}
+.scrap-note span,.scrap-note b{font:7px/2 'Courier New';letter-spacing:1px}.scrap-note i{display:block;font:italic 21px/1.5 Georgia;margin:15px 0}
+.intro-details:before,.school-card:before{background-image:repeating-linear-gradient(90deg,transparent 0 5px,#ffffff70 5px 10px),repeating-linear-gradient(0deg,transparent 0 5px,#ffffff70 5px 10px)}
+@media(max-width:700px){.scrap-note,.cover-letter{display:none}.cover-chain{width:59px;height:115px;left:-27px}.cover-bow{width:68px;height:62px;right:6px;bottom:10px}.charm-top{width:43px;height:65px;right:9px;top:8px;opacity:.65}.charm-bottom{width:52px;height:60px;right:16px;bottom:30px;opacity:.65}}
+
+/* A reserved paper margin keeps every sticker clear of text and controls. */
+.leaf{padding-bottom:115px!important}
+.charm-top{top:auto;bottom:35px;right:28px;width:68px;height:68px;opacity:.95}
+.charm-bottom{bottom:35px;right:28px;width:66px;height:70px;opacity:.95}
+.charm-extra{bottom:40px;right:116px;width:55px;height:55px;transform:rotate(10deg);opacity:.9}
+.cover-token{width:82px;height:110px;right:-35px;bottom:4px;transform:rotate(15deg)}
+@media(max-width:700px){.leaf{padding-bottom:108px!important}.charm-top,.charm-bottom{bottom:32px;width:57px;height:62px;right:24px}.charm-extra{bottom:38px;right:101px;width:48px;height:48px}.cover-token{width:58px;height:79px;right:-19px;bottom:3px}}
