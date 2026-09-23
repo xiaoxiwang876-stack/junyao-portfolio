@@ -27,8 +27,41 @@
  nav.querySelector('[data-next]').onclick = () => go(current + 1);
  nav.querySelector('.mobile-chapter').onclick = () => document.querySelector('#toc').showModal();
  document.querySelector('#home').addEventListener('click', () => {refresh();if(phone.matches) window.scrollTo(0,0)});
- // Vertical reading on phones; use the explicit chapter controls to avoid accidental turns.
+ // Replace the original book gesture on phones, so each swipe turns only once.
  book.addEventListener('touchend', e => {if(phone.matches)e.stopImmediatePropagation()}, {capture:true,passive:true});
+ const interactive = 'button,a,input,textarea,select,video,audio,iframe,img,summary,[role="button"],.audio-panel,dialog,.mobile-nav';
+ const canTurn = target => phone.matches && opened && !document.querySelector('dialog[open]') &&
+   target instanceof Element && !!target.closest('#stage') && !target.closest(interactive);
+ let gesture = null, suppressClickUntil = 0;
+ document.addEventListener('touchstart', e => {
+   gesture = null;
+   if(e.touches.length !== 1 || !canTurn(e.target)) return;
+   const t = e.touches[0];
+   gesture = {x:t.clientX,y:t.clientY,maxY:0,time:Date.now()};
+ }, {capture:true,passive:true});
+ document.addEventListener('touchmove', e => {
+   if(!gesture) return;
+   if(e.touches.length !== 1){gesture=null;return}
+   gesture.maxY = Math.max(gesture.maxY,Math.abs(e.touches[0].clientY-gesture.y));
+ }, {capture:true,passive:true});
+ document.addEventListener('touchcancel', () => {gesture=null}, {capture:true,passive:true});
+ document.addEventListener('touchend', e => {
+   const start = gesture; gesture = null;
+   if(!start || !canTurn(e.target) || e.touches.length) return;
+   const dx = e.changedTouches[0].clientX-start.x;
+   const dy = Math.max(start.maxY,Math.abs(e.changedTouches[0].clientY-start.y));
+   if(Math.abs(dx)>12 || dy>12) suppressClickUntil=Date.now()+500;
+   if(Math.abs(dx)>=65 && Math.abs(dx)>dy*2 && dy<55 && Date.now()-start.time<1200){
+     go(current+(dx<0?1:-1));
+   }
+ }, {capture:true,passive:true});
+ document.addEventListener('click', e => {
+   if(Date.now()<suppressClickUntil || !canTurn(e.target)) return;
+   // Only the narrow empty paper/background margins respond, never the content.
+   const edge = Math.min(32,innerWidth*.08);
+   if(e.clientX<=edge) go(current-1);
+   else if(e.clientX>=innerWidth-edge) go(current+1);
+ });
  phone.addEventListener('change', refresh);
  refresh();
 })();
